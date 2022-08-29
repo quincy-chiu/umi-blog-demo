@@ -8,6 +8,7 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
     case 'POST':
       try {
         const prisma = new PrismaClient();
+        console.log(req.body);
         const user = await prisma.user.create({
           data: {
             email: req.body.email,
@@ -17,7 +18,7 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
           }
         });
         res.status(201)
-          .setCookie('token', await signToken(user.id))
+          // .setCookie('token', await signToken(user.id))
           .json({ ...user, passwordHash: undefined })
         await prisma.$disconnect()
       } catch (e: any) {

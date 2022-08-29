@@ -8,7 +8,6 @@ export default function () {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   async function submit() {
     try {
       const res = await fetch('/api/login', {

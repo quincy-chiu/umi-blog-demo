@@ -10,6 +10,7 @@ datasource db {
   provider = "mysql"
   referentialIntegrity = "prisma"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_URL")
 }
 
 model Post {

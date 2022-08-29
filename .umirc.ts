@@ -8,6 +8,7 @@ export default {
     { exact: true, path: '/posts/create', component: 'posts/create' },
     { exact: true, path: '/login', component: 'login' },
     { exact: true, path: '/posts/:postId', component: 'posts/post' },
+    { exact: true, path: '/register', component: 'register' }
   ],
   plugins: [require.resolve('@umijs/plugins/dist/tailwindcss')],
   tailwindcss: {}
