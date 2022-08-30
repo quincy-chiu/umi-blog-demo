@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "dev": "umi dev",
+    "dev": "set NODE_ENV=dev && umi dev",
     "build": "prisma generate && umi build",
     "postinstall": "umi setup",
     "start": "npm run dev"
@@ -10,6 +10,7 @@
     "@prisma/client": "^3.10.0",
     "@umijs/plugins": "4.0.0-canary.20220316.1",
     "@upstash/redis": "^1.0.2",
+    "antd": "^4.22.8",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^8.5.1",
     "tailwindcss": "^3.0.23",
@@ -20,10 +21,10 @@
     "@types/jsonwebtoken": "^8.5.8",
     "@types/react": "^17.0.0",
     "@types/react-dom": "^17.0.0",
-    "prisma": "^3.10.0",
-    "typescript": "^4.1.2",
     "prettier": "^2",
     "prettier-plugin-organize-imports": "^2",
-    "prettier-plugin-packagejson": "^2"
+    "prettier-plugin-packagejson": "^2",
+    "prisma": "^3.10.0",
+    "typescript": "^4.1.2"
   }
 }
