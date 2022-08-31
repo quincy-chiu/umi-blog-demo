@@ -1,5 +1,5 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import React from 'react';
+import { Button, Checkbox, Form, Input, message } from 'antd';
+import React, { useState } from 'react';
 // @ts-ignore
 import { history } from 'umi';
 
@@ -15,9 +15,12 @@ const defaultAvatar =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR60r554oHAjTqHisNm1jhq08ZHYZ09jrsb5Qi0e6Y8G0DMWBpa6y9pMizp3Jc8R4eDDJQ&usqp=CAU';
 
 export default function () {
+  const [loading, setLoading] = useState(false);
+
   async function onFinish(values: RegisterData) {
     const { email, password, name, avatarUrl = defaultAvatar } = values;
     try {
+      setLoading(true);
       const res = await fetch('/api/register', {
         method: 'POST',
         body: JSON.stringify({ email, password, name, avatarUrl }),
@@ -25,13 +28,18 @@ export default function () {
           'Content-Type': 'application/json',
         },
       });
-      if (res.status !== 201) {
+      setLoading(false);
+      if (res.status === 201) {
+        const data = await res.json();
+        alert(`欢迎回来，${data.name}`);
+        history.push('/posts/create');
+      } else if (res.status === 401) {
+        message.error('邮箱已被注册');
+      } else {
+        message.error(res.text());
         console.error(await res.text());
         return;
       }
-      const data = await res.json();
-      alert(`欢迎回来，${data.name}`);
-      history.push('/posts/create');
     } catch (err) {
       console.error(err);
     }
@@ -88,7 +96,7 @@ export default function () {
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-              <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit" loading={loading}>
                 Submit
               </Button>
             </Form.Item>

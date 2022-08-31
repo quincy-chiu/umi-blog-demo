@@ -18,6 +18,7 @@ export default async function (req: UmiApiRequest, res: UmiApiResponse) {
         }
         res.status(200)
           .setCookie('token', await signToken(user.id))
+          .setCookie('email', req.body.email)
           .json({ ...user, passwordHash: undefined });
         await prisma.$disconnect()
       } catch (error: any) {
