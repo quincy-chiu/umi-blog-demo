@@ -6,7 +6,7 @@ import './index.less';
 
 const defaultUser = {
   email: '',
-  name: '123',
+  name: '',
   avatarUrl: '',
 };
 
@@ -32,10 +32,9 @@ export default function HomePage() {
 
   async function getCurUserInfo() {
     try {
-      const email = document.cookie; // 忘了
-      const res = await fetch('/api/user', {
+      const email = document.cookie.replace(/(?:(?:^|.*;\s*)email\s*\=\s*([^;]*).*$)|^.*$/, '$1');
+      const res = await fetch('/api/users/' + email, {
         method: 'GET',
-        body: JSON.stringify({ email }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -44,6 +43,7 @@ export default function HomePage() {
       console.log(user);
       return user;
     } catch (err) {
+      console.error(err);
       return defaultUser;
     }
   }
